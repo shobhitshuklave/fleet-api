@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: fleet-api
+    runtime: node
+    plan: starter          # change to "free" for testing (spins down when idle)
+    region: singapore      # pick the region closest to your users/Mongo cluster
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true       # redeploy automatically on every push to the connected branch
+    envVars:
+      - key: MONGODB_URI
+        sync: false        # set manually in Render dashboard — never commit secrets
+      - key: MONGODB_DB_NAME
+        value: tradiespec
+      - key: ALLOWED_ORIGINS
+        sync: false        # e.g. https://pixel-to-plan-wise.lovable.app
+      - key: S3_BUCKET
+        sync: false
+      - key: S3_REGION
+        sync: false
+      - key: S3_ACCESS_KEY_ID
+        sync: false
+      - key: S3_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_ENDPOINT
+        sync: false
+      - key: NODE_VERSION
+        value: 20.17.0
