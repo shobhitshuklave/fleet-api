@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const fleetRoutes = require("./routes/fleetRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.get("/health", (req, res) => res.status(200).json({ status: "ok" }));
 app.get("/", (req, res) => res.status(200).json({ service: "fleet-api", status: "running" }));
 
 // --- Routes ---
+app.use("/api/auth", authRoutes);
 app.use("/api/fleet", fleetRoutes);
 
 // --- 404 + error handling ---
